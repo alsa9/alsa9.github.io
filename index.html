@@ -129,17 +129,30 @@
       <div>
       <h4>Data Cleaning and Reconciliation</h4>
       <p class="text-muted align-items-start">
-          In scraping the Daily Treasury Yield Curve Rates dataset, we observed that only the 2019 dataset contains yield rates for 2 month maturity, so in our final 2016, 2017, 2018, and 2019 yield rate datasets, we dropped the 2 month yield rate column from all four datasets for consistency. Additionally we checked for outliers and miscraped values in our datasets by first viewing summary statistics for each dataset, and plotting the daily yield rates for all four datasets, across 10 different timeframes (1, 3, and 6 Months as well as 1, 2, 3, 5, 7, 10, and 20 Years). For datasets where we noticed extreme outliers that corresponded to mis-scraped data, we dropped the row from our dataset. Finally, because Trump tweets on non-business days, we standardized the dates across both the Daily Treasury Yield Curve Rates dataset and the Trump Tweets dataset by dropping rows in the Trump Tweets dataset that did not correspond to a business day on which yield rates were calculated, and then dropped rows in our yield rates dataset whose associated dates did nDot correspond with the remaining Trump Tweets dataset. We cleaned the text data in the Trump Tweets dataset by removing all non alpha-numeric characters and English stop words, as well as standardizing case, using a function (string_manipulation) developed for a project in a <a href = "https://www.kaggle.com/pavanraj159/sentiment-analysis-on-trump-and-hillary-tweets">kaggle competition</a>. 
-      </p><br>
+          We cleaned the text data in the Trump Tweets dataset by removing all non alpha-numeric characters and English stop words, as well as standardizing case, using a function (string_manipulation) developed for a project in a <a href = "https://www.kaggle.com/pavanraj159/sentiment-analysis-on-trump-and-hillary-tweets">kaggle competition</a>. 
+      </p>
+      <p class="text-muted align-items-start">
+          Because Trump tweets on non-business days, we standardized the dates across both the intraday S&P 500 dataset and the Trump Tweets dataset by dropping rows in the Trump Tweets dataset that did not correspond to a business day on which intraday S&P 500 index metrics were calculated, and then dropped rows in our S&P 500 dataset whose associated dates did not correspond with the remaining Trump Tweets dataset. We carried out this identical procedure to reconcile dates between the intraday VIX dataset and the Trump Tweets dataset. 
+      </p>
+      <p class="text-muted align-items-start">
+          In order to understand the immediate impact of Trump’s tweets on market volatility, we linked S&P 500 index metrics and Trump’s tweets, as well as VIX data and Trump’s tweets at the minute level using datetime objects, resulting in two datasets. One dataset contains each Trump tweet matched with the S&P 500 index metrics corresponding to the exact time and date the tweet was posted, and another contains each tweet matched with the VIX metric corresponding to the exact minute and date Trump published the tweet.
+      </p>
+      <p class="text-muted align-items-start">
+          Finally, we created a function (get_perc_change_after_time (for the S&P dataset), get_perc_change_after_time_vix (for the VIX dataset)) that calculates the percent change between the S&P 500 / VIX index metric the minute Trump posted the tweet and a user designated number of minutes after the tweet was published so we can understand the impact of Trump’s tweets on market volatility at various timeframes after posting.
+           </p><br>
       <h4>Data Exploration</h4>
       <p class="text-muted align-items-start">
           Our data exploration was made up of three different stages: exploring the yield data, exploring the tweet data, and exploring the interactions and relationships between the two datasets. The tweet data were explored as a time series and also as a collection of daily returns. These forms of the yield data are graphed below for several bond durations from 2019 data:
       </p><br>
       </div>
-      <h6 id="fig1fig2" >Figure 1: VIX 1 and 5 Minute Percent Change After Trump Tweets <br/>
-      Figure 2: VIX Intraday Time Series</h6>
+      <h6 id="fig1fig2" >Figure 1.1: VIX 1 and 5 Minute Percent Change After Trump Tweets <br/>
+      Figure 1.2: VIX Intraday Time Series</h6>
         <img class="mx-auto img-fluid d-block" src="img/eda/fig1fig2.png" alt=""><br>
         <p class="text-muted">The distribution of percent changes has a bell-shaped distribution that seems to be somewhat more heavy-tailed than a normal distribution, especially for 5 minutes post-tweet, which also has greater variance (this can be investigated further). We randomly chose 3 days to demonstrate the microfluctuations throughout 24 hours that could be impacted by the President's tweets, since we felt that interday data did not show this. The intraday time series shows microfluctuations throughout the day, with 11/11 and 11/08 demonstrating a downward trend throughout the day and 11/05 ending with an upward tick. </p><br>
+      <h6 id="fig12fig22" >Figure 2.1: S&P 1 and 5 Minute Percent Change After Trump Tweets <br/>
+      Figure 2.2: S&P Intraday Time Series</h6>
+        <img class="mx-auto img-fluid d-block" src="img/eda/fig1fig2.png" alt=""><br>
+        <p class="text-muted">The distribution of percent changes has a bell-shaped distribution. The data for 5 minutes seems to have greater variance. We randomly chose 3 days to demonstrate the microfluctuations throughout 24 hours that could be impacted by the President's tweets, since we felt that interday data did not show this. The intraday time series shows microfluctuations throughout the day, with 11/06 ending neutrally, 11/05 ending in the negative, and 11/04 ending with positive changes. </p><br>
         <div class="row">
         <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
           <h6 id="fig3" >Figure 3: Trump Tweets Top 30 Most Common Words, 2016-2019</h6>
@@ -348,29 +361,33 @@
     </div>
           <h6 class="text-muted text-center">XGBoost</h6></br>
         <img class="mx-auto img-fluid d-block col-lg-8" src="img/model/classification/5mvix/prediction/xgboost.png" alt=""><br>
-  </div>
-  </div>
-  <h4 class="text-dark">Classification Models on VIX Data, 5 Minutes after Trump's Tweets</h4><br>
-    <p class="text-primary align-items-start"> We modelled the VIX Returns in many different ways in order to seek the best result for 5 minutes after Trump's tweets. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
+  <!-- </div> -->
+  <h4 class="text-dark">Regression Models</h4><br>
+    <p class="text-primary align-items-start"> We built regressions for the amount that the S&P or VIX went up or down 1 or 5 minutes after President Trump sent out a tweet using Random Forest MSE. </p></br>
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
-          <h6  >Random Forest (best max tree depth: 5)</h6>
-        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/parameters/rf.png" alt=""><br>
+          <h6  >S&P Change, 1 Minute Post-Tweet <br/> Test MSE: 7.2181e-7, Baseline MSE: 8.4556e-8 (better than Random Forest)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/regression/1msp.png" alt=""><br>
+        <p> Conclusion????? </p><br>
         </div>
           <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
-          <h6  >AdaBoost (best max tree depth: 3, best number of estimators: 10)</h6>
-        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/parameters/adaboost.png" alt=""><br>
+          <h6  >S&P Change, 5 Minutes Post-Tweet <br/> Test MSE: 8.4557e-8 (with best max tree depth, 200), Baseline MSE: 8.4555e-8 (better than Random Forest)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/regression/5msp.png" alt=""><br>
+        <p> The S&P500 data are not easily predictable with a regression model on a 5 minute prediction period. </p><br>
       </div>
       <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
-          <h6 >Neural Network (best number of nodes per layer: 10, best n_layers: 1)</h6>
-        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/parameters/nn.png" alt=""><br>
+          <h6 >VIX Change, 1 Minute Post-Tweet <br/> Test MSE: 1.3745e-6, Baseline MSE: 8.4556e-8 (better than Random Forest) </h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/regression/1mvix.png" alt=""><br>
         </div>
           <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
-          <h6 >XGBoost (best max_depth: 2, best eta: 0.40)</h6>
-        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/parameters/xgboost.png" alt=""><br>
+          <h6 >VIX Change, 5 Minutes Post-Tweet <br/> Test MSE: 6.882e-06 (with best max tree depth, 3), Baseline MSE: 6.879e-06 (better than Random Forest) </h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/regression/5mvix.png" alt=""><br>
+        <p> The VIX data are not predictable with a regression on a 5 minute prediction period </p> <br>
       </div>
     </div>
+    </div>
+  </div>
 </div>
 </div>
   </section>
