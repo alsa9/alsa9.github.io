@@ -100,14 +100,14 @@
         <p class="align-items-start text-light">
           Although many studies on the topic exist, each differs a bit in methodology and subject matter. Regarding President Trump's tweets, everything from the frequency of his tweets to sentiment analysis of his words. What unites these differing studies is the focus they take–be it predicting the performance of individual companies after <a class = "text-white-75" href = "http://creativematter.skidmore.edu/cgi/viewcontent.cgi?article=1001&context=econ_fac_schol" target="_blank">company-specific tweets by President Trump</a> or predicting the performance of <a class = "text-white-75" href = "https://www.athensjournals.gr/business/2018-4-4-2-Colonescu.pdf" target="_blank">the US Foreign Exchange market</a> based on the president's tweets, a lot of research takes a close look at a specific subset of tweets or areas of prediction. In the former example, the study was able to determine that company-specific tweets caused fluctuations in stock value, focusing specifically on anecdotal evidence based on fluctuations in Toyota and Nordstrom stock and corresponding Trump tweets about the companies. There was also evidence that the effect of his tweets were greater prior to his inauguration in January 2017. Most interestingly, however, the researchers found that although there was impact on millions of dollars of shareholder value, the spike or drop in value would generally return to prior status quo after about 24 hours (<a class = "text-white-75" href="#references">Ref. 1</a>). This was somewhat mirrored in the study on Trump's tweet effects on US Financial Markets and Foreign Exchange value. This study also found, through a sentiment analysis of the president's words, that although there can be short term effects and fluctuations on benchmarks such as the US-Canadian currency exchange rate, such fluctuations do not persist, and other bilateral exchange rates were not significantly affected. There did seem to be lasting effect on the US Dollar Composite Exchange Rate–a first in the many studies related to tweets' effects on the market (<a class = "text-white-75" href="#references">Ref. 2</a>).</p><br>
           <p class="align-items-start text-light">
-          Studies focusing on wide-range market fluctuation based on an aggregate of all Trump's tweets yield varied responses, most of which indicate a lack of a relationship. Tong Yang and Yuxin Yang, using NLP and LSTM Networks, were able to out-predict human average with a 48% 3-class classification accuracy, but concluded that there is not quite a sufficient relationship to make deterministic predictions (<a class = "text-white-75" href="#references">Ref. 3</a>). Our goal is to follow this type of processing (word vectorization of all tweets, followed by constructing various models and choosing the best performing one) in order to determine for ourselves whether or not S&P and Treasury yield fluctuations can be predicted following President Trump's tweets. </p><br>
+          Studies focusing on wide-range market fluctuation based on an aggregate of all Trump's tweets yield varied responses, most of which indicate a lack of a relationship. Tong Yang and Yuxin Yang, using NLP and LSTM Networks, were able to out-predict human average with a 48% 3-class classification accuracy, but concluded that there is not quite a sufficient relationship to make deterministic predictions (<a class = "text-white-75" href="#references">Ref. 3</a>). Our goal is to follow this type of processing (word vectorization of all tweets, followed by constructing various models and choosing the best performing one) in order to determine for ourselves whether or not S&P and Treasury yield fluctuations can be predicted following President Trump's tweets. We may also take a look at specifically predictive words, as JP Morgan Chase found that "according to the analysts, Trump tweets using the words “China,” “billion,” “products,” “democrats,” and “great” were the biggest market movers" in their creation of the Volfefe index (<a class = "text-white-75" href="#references">Ref. 4</a>). </p><br>
         <hr class="divider light my-4">
         <h4 class="align-self-start text-light">Data Description</h4>
         <p class="align-items-start text-light">
           We pulled President Trump's tweets from the <a class = "text-white-75" href = "http://www.trumptwitterarchive.com/archive" target="_blank">Trump Twitter Archive</a>. The original data we pulled included tweets put out between January 2016 and November 2016. Although we initially pulled with retweets, during our data cleaning and exploratory data analysis, we decided to not use the retweets as part of our model. From the data pulled we were able to ascertain tweet content (text), source, time created, number of retweets, number of favorites, date, and time stamp. 
         </p>
         <p class="talign-items-start text-light"> 
-          For market data, we obtained intraday minute S&P 500 as well as VIX data from CS109A Teaching Staff via Harvard Business School, Baker Library Databases, Bloomberg Databases and CS109A Final Project Group 3 respectively (<a class = "text-white-75" href="#references">Ref. 4</a>), (<a class = "text-white-75" href="#references">Ref. 5</a>). The intraday S&P and VIX data are numerical, while the dataset containing Trump’s tweets has both textual data (in the form of the text of his tweets), and numerical data for the number of likes and retweets per tweet. Each data point in all three datasets is marked with a timestamp (date and minute); for the intraday S&P 500 dataset, each row contains open, high, low, close, volume, and tick count of the index from 0:00 to 16:00 for business days between 11/13/2016 to 11/08/2019, and for the intraday VIX dataset each row contains the volatility index from 3:15 to 16:14 for business days between 12/01/2015 to 11/11/2019. Finally, for the Trump tweets dataset, each tweet is marked with the date and time the tweet was posted.
+          For market data, we obtained intraday minute S&P 500 as well as VIX data from CS109A Teaching Staff via Harvard Business School, Baker Library Databases, Bloomberg Databases and CS109A Final Project Group 3 respectively (<a class = "text-white-75" href="#references">Ref. 5</a>), (<a class = "text-white-75" href="#references">Ref. 6</a>). The intraday S&P and VIX data are numerical, while the dataset containing Trump’s tweets has both textual data (in the form of the text of his tweets), and numerical data for the number of likes and retweets per tweet. Each data point in all three datasets is marked with a timestamp (date and minute); for the intraday S&P 500 dataset, each row contains open, high, low, close, volume, and tick count of the index from 0:00 to 16:00 for business days between 11/13/2016 to 11/08/2019, and for the intraday VIX dataset each row contains the volatility index from 3:15 to 16:14 for business days between 12/01/2015 to 11/11/2019. Finally, for the Trump tweets dataset, each tweet is marked with the date and time the tweet was posted.
         </p><br>
         <hr class="divider light my-4">
         <h4 class = "align-self-start text-light">Challenges</h4>
@@ -185,7 +185,7 @@
         </div>
       </div>
       <h4 class="text-dark">Classification Models on S&P 500, 1 Minute after Trump's Tweets</h4><br>
-    <p class="text-primary align-items-start"> We modelled the S&P 500 Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
+    <p class="text-primary align-items-start"> We modelled the S&P 500 Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost. We chose parameters that had the best cross-validation accuracy among the set of parameters that we tested. Additionally, we used a grid search to try a reasonable range of parameter values and calculate the resulting accuracy for each value. This process was repeated for every model we fit. </p></br>
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
@@ -371,7 +371,7 @@
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
           <h6  >S&P Change, 1 Minute Post-Tweet <br/> Test MSE: 7.2181e-7, Baseline MSE: 8.4556e-8 (better than Random Forest)</h6>
         <img class="mx-auto img-fluid d-block" src="img/model/regression/1msp.png" alt=""><br>
-        <p> Conclusion????? </p><br>
+        <p>The S&P500 data are not easily predictable with a regression model on a 1 minute prediction period.</p><br>
         </div>
           <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
           <h6  >S&P Change, 5 Minutes Post-Tweet <br/> Test MSE: 8.4557e-8 (with best max tree depth, 200), Baseline MSE: 8.4555e-8 (better than Random Forest)</h6>
@@ -381,6 +381,7 @@
       <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
           <h6 >VIX Change, 1 Minute Post-Tweet <br/> Test MSE: 1.3745e-6, Baseline MSE: 8.4556e-8 (better than Random Forest) </h6>
         <img class="mx-auto img-fluid d-block" src="img/model/regression/1mvix.png" alt=""><br>
+        <p> The VIX data are not predictable with a regression on a 1 minute prediction period </p> <br>
         </div>
           <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
           <h6 >VIX Change, 5 Minutes Post-Tweet <br/> Test MSE: 6.882e-06 (with best max tree depth, 3), Baseline MSE: 6.879e-06 (better than Random Forest) </h6>
@@ -394,6 +395,20 @@
 </div>
   </section>
 
+
+<!--   <section class="page-section bg-primary" id="overview">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class=" section-heading text-uppercase text-white mb-0">Overview</h2>
+          <h3 class="section-subheading text-light mt-4">Can we predict the volatility of the market based on Donald Trump's tweets? </h3>
+          <hr class="divider light mt-5">
+        </div>
+
+      </div>
+        <h4 class="align-self-start text-light">Problem Statement</h4>
+        <p class="align-items-start text-light"> -->
+
   <!-- Conclusion -->
   <section class="page-section bg-dark text-white" id="conclusion">
     <div class="container">
@@ -401,7 +416,12 @@
         <div class="col-lg-8 text-center">
       <h2 class=" section-heading text-uppercase mt-5">Conclusion</h2>
       <hr class="divider primary my-5">
-
+    </div>
+    <div>
+        <p class="align-items-start text-light">In building our models, we looked at both VIX and S&P 500 data to diversify the potential findings and varied our predictions based on 1 minute and 5 minute, in case one time interval was more accurate in prediction than the other. Overall, the data was very noisy and difficult to predict, and none of the models were able to predict well for the S&P data. The average prediction accuracy is 50% if the model classifies on a two-class base (1 or 0), since we resampled the test data to have 1 as the response variable 50% of the time and 0 as the response variables 50% of the time. A few models were able to predict above average, such as all the models in the 1-minute post-tweet VIX data case. In most cases, XGBoost outperformed other models by quite a large margin, but in the case of 1 minute post-tweet VIX data, Random Forest was able to predict with a 94% accuracy. </p>
+        <p class="align-items-start text-light">In general, because it is so difficult to predict fluctuations across different datasets, and because the best predicted interval is 1 minute, there seems to be weak if any connection between Trump’s tweets and consistent variations in the market. Based on our models and previous literature, it is clear that although there may be momentary fluctuations, long term effects and market value are not deeply impacted by the President’s tweets. Our models and the relationship explored, however, may be useful in certain cases, such as when trading options volatility. </p><br>
+        <h4 class="text-light">Future Work</h4>
+        <p class="align-items-start text-light">It would be helpful to run our models on more datasets, including but not limited to the DJIA or US Foreign Exchange rate statistics. This might help generalize a model and give a better idea of whether or not there is a real, predictable relationship. Along with looking at keywords, we can try to vectorize the distances between words in trump's tweets with a selected subset of economy-related words as ascertained by past studies, such as "China", "billions", or "great". Or, rather than generalizing, we might look to narrow the scope of study, and only look at the President’s tweets that contain a specific set of keywords, so we might be able to see whether market-related or economy-related tweets could affect the market. Ultimately, due to the limited scope of this project and the vast array of data available, there are a lot of adjustments that could be made to our study in order to get a better sense of the relationship between the President’s tweets and the US Market. </p>
     </div>
       </div>
     </div>
@@ -422,6 +442,7 @@
         <li>Yang, Tong, and Yuxin Yang. <a href="https://pdfs.semanticscholar.org/af67/ae4c3ac357679c10ddc394df52d392432f63.pdf">"Predict Effect of Trump’s Tweets on Stock Price Milestone"</a> (2017).</li>
         <li>CS109A Teaching Staff via Harvard Business School, Baker Library Databases, <a href="https://www.library.hbs.edu/Find/Databases/Bloomberg">Bloomberg Databases</a></li>
         <li>Bardoloi, Yashvardhan, Adil Bhatia, and Gaurang Goel. CS109A Final Project Group 3.</li>
+        <li>Alloway, Tracy. <a href="ttps://www.bloomberg.com/news/articles/2019-09-09/jpmorgan-creates-volfefe-index-to-track-trump-tweet-impact.">“JPMorgan Creates 'Volfefe' Index to Track Trump Tweet Impact.”</a> Bloomberg.com, Bloomberg, 9 Sept. 2019.</li>
       </ol>
     </div>
   </section
