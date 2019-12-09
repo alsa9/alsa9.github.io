@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CS109 Final - Trump Tweets and Market Volatility</title>
+
+  <!-- Font Awesome Icons  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+  <!-- Plugin CSS -->
+  <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+  <!-- Theme CSS - Includes Bootstrap -->
+  <link href="css/creative.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="#page-top">Trump Tweets</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto my-2 my-lg-0">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#overview">Overview</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#eda">EDA</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#models">Models</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#conclusion">Conclusion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#references">References</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#portfolio">Team</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Masthead -->
+  <header class="masthead">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center justify-content-center text-center">
+        <div class="col-lg-10 align-self-end">
+          <h1 class="text-uppercase text-white font-weight-bold">Predicting Market Volatility with Trump Tweets</h1>
+          <hr class="divider my-4">
+        </div>
+        <div class="col-lg-8 align-self-baseline">
+          <p class="text-white-75 font-weight-light mb-5">Fall 2019 CS109A Final Project, Group 108</p>
+          <a class="btn btn-primary btn-xl js-scroll-trigger" href="#overview">Explore</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Overview -->
+  <section class="page-section bg-primary" id="overview">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class=" section-heading text-uppercase text-white mb-0">Overview</h2>
+          <h3 class="section-subheading text-light mt-4">Can we predict the volatility of the market based on Donald Trump's tweets? </h3>
+          <hr class="divider light mt-5">
+        </div>
+
+      </div>
+        <h4 class="align-self-start text-light">Problem Statement</h4>
+        <p class="align-items-start text-light">
+          We live in a digital world that is ever-changing, from the sources of our information, to the credibility we place in various online mediums, and the ease and patterns of disseminating information. Online text is incredibly powerful. Further social media is ubiquitous, and Twitter alone produces, on average, 500 million tweets a day. Individual tweets can have profound effect. 
+        </p>
+        <p class="align-items-start text-light">
+          Another global trend is that the political landscape is becoming increasingly polarizing. Within the United States, we are experiencing a unique period in history. To this end, tweets, especially political ones, are influential and ripe for analysis. Throughout the past four years, President Donald Trump has often tweeted about both market related and nonrelated topics. We are seeking to discover a relationship between US Treasury Bonds/S&P 500 Data and President Trump's tweets. 
+        </p><br>
+        <hr class="divider light my-4">
+        <h4 class="align-self-start text-light">Review of Literature</h4>
+        <p class="align-items-start text-light">
+          Of course, there has been extensive research into this topic, and many different studies have attempted to discover a correlation between President Trump's tweets and market data. Studies have probed Trump's tweets for connection with volatility and price of stocks, bonds, and all the options in between. Both short and long term effects have been studied exhaustively. 
+        </p>
+        <p class="align-items-start text-light">
+          Although many studies on the topic exist, each differs a bit in methodology and subject matter. Regarding President Trump's tweets, everything from the frequency of his tweets to sentiment analysis of his words. What unites these differing studies is the focus they take–be it predicting the performance of individual companies after <a class = "text-white-75" href = "http://creativematter.skidmore.edu/cgi/viewcontent.cgi?article=1001&context=econ_fac_schol" target="_blank">company-specific tweets by President Trump</a> or predicting the performance of <a class = "text-white-75" href = "https://www.athensjournals.gr/business/2018-4-4-2-Colonescu.pdf" target="_blank">the US Foreign Exchange market</a> based on the president's tweets, a lot of research takes a close look at a specific subset of tweets or areas of prediction. In the former example, the study was able to determine that company-specific tweets caused fluctuations in stock value, focusing specifically on anecdotal evidence based on fluctuations in Toyota and Nordstrom stock and corresponding Trump tweets about the companies. There was also evidence that the effect of his tweets were greater prior to his inauguration in January 2017. Most interestingly, however, the researchers found that although there was impact on millions of dollars of shareholder value, the spike or drop in value would generally return to prior status quo after about 24 hours (<a class = "text-white-75" href="#references">Ref. 1</a>). This was somewhat mirrored in the study on Trump's tweet effects on US Financial Markets and Foreign Exchange value. This study also found, through a sentiment analysis of the president's words, that although there can be short term effects and fluctuations on benchmarks such as the US-Canadian currency exchange rate, such fluctuations do not persist, and other bilateral exchange rates were not significantly affected. There did seem to be lasting effect on the US Dollar Composite Exchange Rate–a first in the many studies related to tweets' effects on the market (<a class = "text-white-75" href="#references">Ref. 2</a>).</p><br>
+          <p class="align-items-start text-light">
+          Studies focusing on wide-range market fluctuation based on an aggregate of all Trump's tweets yield varied responses, most of which indicate a lack of a relationship. Tong Yang and Yuxin Yang, using NLP and LSTM Networks, were able to out-predict human average with a 48% 3-class classification accuracy, but concluded that there is not quite a sufficient relationship to make deterministic predictions (<a class = "text-white-75" href="#references">Ref. 3</a>). Our goal is to follow this type of processing (word vectorization of all tweets, followed by constructing various models and choosing the best performing one) in order to determine for ourselves whether or not S&P and Treasury yield fluctuations can be predicted following President Trump's tweets. </p><br>
+        <hr class="divider light my-4">
+        <h4 class="align-self-start text-light">Data Description</h4>
+        <p class="align-items-start text-light">
+          We pulled President Trump's tweets from the <a class = "text-white-75" href = "http://www.trumptwitterarchive.com/archive" target="_blank">Trump Twitter Archive</a>. The original data we pulled included tweets put out between January 2016 and November 2016. Although we initially pulled with retweets, during our data cleaning and exploratory data analysis, we decided to not use the retweets as part of our model. From the data pulled we were able to ascertain tweet content (text), source, time created, number of retweets, number of favorites, date, and time stamp. 
+        </p>
+        <p class="talign-items-start text-light"> 
+          For market data, we scraped daily treasury yield curve dates from the <a class = "text-white-75" href = "https://home.treasury.gov/" target="_blank">US Treasury Website</a>. The Daily Treasury Yield Curve Rate data is numerical, while the dataset containing Trump’s tweets has both textual data (in the form of the text of his tweets), and numerical data for the number of likes and retweets per tweet. Each data point in both datasets is marked with a timestamp; for the Daily Treasury Yield dataset, each row containing yield rates for 1, 2, 3, and 6 Month, as well as 1, 2, 3, 5, 7, 10, 20, and 30 Year treasury bonds is marked with the date the rates correspond to, and for the Trump Tweets dataset, each tweet is marked with the date and time the tweet was posted. We also used minute data from the S&P 500 (<a class = "text-white-75" href="#references">Ref. 4</a>).  The minute data included the time it was created, open, high, low, and close, volume, and tick count. Additionally, we looked at VIX data from an HBS Bloomberg terminal, pulled by another final project group (<a class = "text-white-75" href="#references">Ref. 5</a>).
+        </p><br>
+        <hr class="divider light my-4">
+        <h4 class = "align-self-start text-light">Challenges</h4>
+        <p class="text-light align-items-start">
+          Some challenges we had included vectorizing text data, since there are many ways of going about generating features from text data. The way in which we did it (TFIDF) generated over 10,000 features, which resuslted in difficulties in training. Additionally, we ran into difficulties reconciling data sets as there were discrepancies between datasets and they were not consistent. Lastly, we struggled to really improve the model, for we tried many different models but the accuracy varied greatly depending on the length of prediction, and we struggled to build a consistent model. 
+        </p><br>
+        </div>
+  </section>
+
+  <!-- EDA -->
+  <section class="page-section" id="eda">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+      <h2 class=" section-heading text-uppercase mt-0">Exploratory Data Analysis</h2>
+      <hr class="divider mt-5">
+    </div>
+      </div>
+      <div>
+      <h4>Data Cleaning and Reconciliation</h4>
+      <p class="text-muted align-items-start">
+          In scraping the Daily Treasury Yield Curve Rates dataset, we observed that only the 2019 dataset contains yield rates for 2 month maturity, so in our final 2016, 2017, 2018, and 2019 yield rate datasets, we dropped the 2 month yield rate column from all four datasets for consistency. Additionally we checked for outliers and miscraped values in our datasets by first viewing summary statistics for each dataset, and plotting the daily yield rates for all four datasets, across 10 different timeframes (1, 3, and 6 Months as well as 1, 2, 3, 5, 7, 10, and 20 Years). For datasets where we noticed extreme outliers that corresponded to mis-scraped data, we dropped the row from our dataset. Finally, because Trump tweets on non-business days, we standardized the dates across both the Daily Treasury Yield Curve Rates dataset and the Trump Tweets dataset by dropping rows in the Trump Tweets dataset that did not correspond to a business day on which yield rates were calculated, and then dropped rows in our yield rates dataset whose associated dates did nDot correspond with the remaining Trump Tweets dataset. We cleaned the text data in the Trump Tweets dataset by removing all non alpha-numeric characters and English stop words, as well as standardizing case, using a function (string_manipulation) developed for a project in a <a href = "https://www.kaggle.com/pavanraj159/sentiment-analysis-on-trump-and-hillary-tweets">kaggle competition</a>. 
+      </p><br>
+      <h4>Data Exploration</h4>
+      <p class="text-muted align-items-start">
+          Our data exploration was made up of three different stages: exploring the yield data, exploring the tweet data, and exploring the interactions and relationships between the two datasets. The tweet data were explored as a time series and also as a collection of daily returns. These forms of the yield data are graphed below for several bond durations from 2019 data:
+      </p><br>
+      </div>
+      <h6 id="fig1fig2" >Figure 1: VIX 1 and 5 Minute Percent Change After Trump Tweets <br/>
+      Figure 2: VIX Intraday Time Series</h6>
+        <img class="mx-auto img-fluid d-block" src="img/eda/fig1fig2.png" alt=""><br>
+        <p class="text-muted">The distribution of percent changes has a bell-shaped distribution that seems to be somewhat more heavy-tailed than a normal distribution, especially for 5 minutes post-tweet, which also has greater variance (this can be investigated further). We randomly chose 3 days to demonstrate the microfluctuations throughout 24 hours that could be impacted by the President's tweets, since we felt that interday data did not show this. The intraday time series shows microfluctuations throughout the day, with 11/11 and 11/08 demonstrating a downward trend throughout the day and 11/05 ending with an upward tick. </p><br>
+        <div class="row">
+        <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
+          <h6 id="fig3" >Figure 3: Trump Tweets Top 30 Most Common Words, 2016-2019</h6>
+        <img class="mx-auto img-fluid d-block" src="img/eda/fig3.png" alt=""><br>
+        </div>
+        <div class="col-lg-4 mr-auto text-center">
+          <br><br><br><p class="text-muted">The bar graph on the left shows the most common words that have appeared in President Trump’s tweets from 2016-2019. Some of them, such as “great” and “big”, could be helpful in indicating sentiment of tweets. “Amp” corresponds to ampersand, which is not so important in this analysis. Other words are highly political—”democrats” and “Hillary”. In general, it seems that individual words have more political face value, rather than economic correspondence, so it will be interesting to see how they match up to tweets that impact the market down the line. </p>
+        </div>
+      </div>
+      <p class="text-muted"> The cleaned text data in President Trump’s tweets ranged from only 1 ‘word’ to 35 words. The distribution of the length of his tweets after cleaning the text shows a distinction between the two types of tweets: concise tweets with a small number of words that say things like ‘READ THE TRANSCRIPT!” and longer tweets that are closer to the Twitter character limit, which usually contain more thorough messages than the shorter tweets. There are not many tweets in the middle range (5-20 words). This trend may become helpful for modeling. </p><br>  
+      <h6 id="fig4fig5" >Figure 4: Distribution of Number of Characters in President Trump's Tweets<br/>
+      Figure 5: Characters in Trump's Tweets vs. S&P Percent Change One Minute after Tweet <br/> Figure 6: Characters in Trump's Tweets vs. VIX Percent Change One Minute after Tweet</h6><br>
+        <img class="mx-auto img-fluid d-block" src="img/eda/fig4fig5.png" alt=""><br>
+        <p class="text-muted">We also examined the relationship between the number of tweets in a day and the yield returns over the following day. The above scatterplot shows there is no relationship between length of tweet and VIX/S&P 500 percent change one minute after President Trump tweets, and thus the relationship is probably in the text or content of his tweets. </p><br>
+    <h6 class="text-muted text-center">Scatter Plot of PCA Projection of Word2Vec Model Trained on Trump's Tweets</h6></br>
+        <img class="mx-auto img-fluid d-block" src="img/eda/vec.png" alt=""><br><br>
+        <p class="text-muted">From this word vector plot we can see a number of words in the bottom left of the plot that relate to the economy. These relationships can be further explored in our models. </p>
+    </div>
+  </section>
+
+  <!-- Models -->
+  <section class="page-section bg-white" id="models">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+      <h2 class=" section-heading text-uppercase mb-5 text-dark">Models</h2>
+      <hr class="divider my-5 ">
+        </div>
+      </div>
+      <h4 class="text-dark">Classification Models on S&P 500, 1 Minute after Trump's Tweets</h4><br>
+    <p class="text-primary align-items-start"> We modelled the S&P 500 Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
+    <!-- </div> -->
+    <div class="row text-muted">
+        <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6  >Random Forest (best max tree depth: 3)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/parameters/rf.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6  >AdaBoost (best max tree depth: 1, best number of estimators: 3)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/parameters/adaboost.png" alt=""><br>
+      </div>
+      <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Neural Network (best number of nodes per layer: 5, best n_layers: 3)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/parameters/nn.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >XGBoost (best max_depth: 1, best eta: 0.20)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/parameters/xgboost.png" alt=""><br>
+      </div>
+    </div>
+    <!-- <div> -->
+    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of the S&P moving either up or down 1 minute after President Trump sends out a tweet.</p></br>
+    <!-- </div> -->
+    <div class="row text-muted">
+        <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Random Forest</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/prediction/rf.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >AdaBoost</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/prediction/adaboost.png" alt=""><br>
+      </div>
+      <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Neural Network</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/prediction/nn.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >Logistic Regression</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/prediction/logreg.png" alt=""><br><br>
+      </div>
+    </div>
+          <h6 class="text-muted text-center">XGBoost</h6></br>
+        <img class="mx-auto img-fluid d-block col-lg-8" src="img/model/classification/1msp/prediction/xgboost.png" alt=""><br><br><br><br>
+  <!-- </div> -->
+
+  <h4 class="text-dark">Classification Models on S&P 500, 5 Minutes after Trump's Tweets</h4><br>
+    <p class="text-primary align-items-start"> We modelled the S&P 500 Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
+    <!-- </div> -->
+    <div class="row text-muted">
+        <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6  >Random Forest (best max tree depth: 100)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/parameters/rf.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6  >AdaBoost (best max tree depth: 100, best number of estimators: 3)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/parameters/adaboost.png" alt=""><br>
+      </div>
+      <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Neural Network (best number of nodes per layer: 20, best n_layers: 5)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/parameters/nn.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >XGBoost (best max_depth: 3, best eta: 0.25)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/parameters/xgboost.png" alt=""><br>
+      </div>
+    </div>
+    <!-- <div> -->
+    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of the S&P moving either up or down 5 minutes after President Trump sends out a tweet.</p></br>
+    <!-- </div> -->
+    <div class="row text-muted">
+        <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Random Forest</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/prediction/rf.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >AdaBoost</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/prediction/adaboost.png" alt=""><br>
+      </div>
+      <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Neural Network</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/prediction/nn.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >Logistic Regression</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/prediction/logreg.png" alt=""><br><br>
+      </div>
+    </div>
+          <h6 class="text-muted text-center">XGBoost</h6></br>
+        <img class="mx-auto img-fluid d-block col-lg-8" src="img/model/classification/5msp/prediction/xgboost.png" alt=""><br><br><br>
+  <h4 class="text-dark">Classification Models on VIX Data, 1 Minute after Trump's Tweets</h4><br>
+    <p class="text-primary align-items-start"> We modelled the VIX Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
+    <!-- </div> -->
+    <div class="row text-muted">
+        <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6  >Random Forest (best max tree depth: 3)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/parameters/rf.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6  >AdaBoost (best max tree depth: 1, best number of estimators: 3)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/parameters/adaboost.png" alt=""><br>
+      </div>
+      <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Neural Network (best number of nodes per layer: 5, best n_layers: 3)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/parameters/nn.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >XGBoost (best max_depth: 1, best eta: 0.20)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/parameters/xgboost.png" alt=""><br>
+      </div>
+    </div>
+    <!-- <div> -->
+    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of VIX Returns moving either up or down 1 minute after President Trump sends out a tweet.</p></br>
+    <!-- </div> -->
+    <div class="row text-muted">
+        <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Random Forest</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/prediction/rf.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >AdaBoost</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/prediction/adaboost.png" alt=""><br>
+      </div>
+      <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Neural Network</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/prediction/nn.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >Logistic Regression</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/prediction/logreg.png" alt=""><br><br>
+      </div>
+    </div>
+          <h6 class="text-muted text-center">XGBoost</h6></br>
+        <img class="mx-auto img-fluid d-block col-lg-8" src="img/model/classification/1mvix/prediction/xgboost.png" alt=""><br><br><br>
+  <!-- </div> -->
+  <h4 class="text-dark">Classification Models on VIX Data, 5 Minutes after Trump's Tweets</h4><br>
+    <p class="text-primary align-items-start"> We modelled the VIX Returns in many different ways in order to seek the best result for 5 minutes after Trump's tweets. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
+    <!-- </div> -->
+    <div class="row text-muted">
+        <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6  >Random Forest (best max tree depth: 5)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/parameters/rf.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6  >AdaBoost (best max tree depth: 3, best number of estimators: 10)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/parameters/adaboost.png" alt=""><br>
+      </div>
+      <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Neural Network (best number of nodes per layer: 10, best n_layers: 1)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/parameters/nn.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >XGBoost (best max_depth: 2, best eta: 0.40)</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/parameters/xgboost.png" alt=""><br>
+      </div>
+    </div>
+    <!-- <div> -->
+    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of VIX Returns moving either up or down 5 minutes after President Trump sends out a tweet.</p></br>
+    <!-- </div> -->
+    <div class="row text-muted">
+        <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Random Forest</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/prediction/rf.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >AdaBoost</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/prediction/adaboost.png" alt=""><br>
+      </div>
+      <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Neural Network</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/prediction/nn.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >Logistic Regression</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/prediction/logreg.png" alt=""><br><br>
+      </div>
+    </div>
+          <h6 class="text-muted text-center">XGBoost</h6></br>
+        <img class="mx-auto img-fluid d-block col-lg-8" src="img/model/classification/5mvix/prediction/xgboost.png" alt=""><br>
+  </div>
+  </div>
+</div>
+</div>
+  </section>
+
+  <!-- Conclusion -->
+  <section class="page-section bg-dark text-white" id="conclusion">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+      <h2 class=" section-heading text-uppercase mt-5">Conclusion</h2>
+      <hr class="divider primary my-5">
+
+    </div>
+      </div>
+    </div>
+  </section>
+
+<!-- References -->
+  <section id="references">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading text-uppercase my-5">References</h2>
+          <hr class="divider primary my-5">
+        </div>
+      </div><br>
+      <ol class = "text-muted">
+        <li>Ge, Qi, Alexander Kurov, and Marketa Halova Wolfe. <a href="http://creativematter.skidmore.edu/cgi/viewcontent.cgi?article=1001&context=econ_fac_schol">"Stock Market Reactions to Presidential Statements: Evidence from Company-Specific Tweets"</a> Skidmore College Creative Matter (2018).</li>
+        <li>Colonescu, Constantin. <a href="https://www.athensjournals.gr/business/2018-4-4-2-Colonescu.pdf">"The Effects of Donald Trump’s Tweets on US Financial and Foreign Exchange Markets."</a> Athens Journal of Business & Economics 4.4 (2018): 375-388.</li>
+        <li>Yang, Tong, and Yuxin Yang. <a href="https://pdfs.semanticscholar.org/af67/ae4c3ac357679c10ddc394df52d392432f63.pdf">"Predict Effect of Trump’s Tweets on Stock Price Milestone"</a> (2017).</li>
+        <li>CS109A Teaching Staff via Harvard Business School, Baker Library Databases, <a href="https://www.library.hbs.edu/Find/Databases/Bloomberg">Bloomberg Databases</a></li>
+        <li>Bardoloi, Yashvardhan, Adil Bhatia, and Gaurang Goel. CS109A Final Project Group 3.</li>
+      </ol>
+    </div>
+  </section
+
+  <!-- Team -->
+<section id="portfolio">
+  <div class="row justify-content-center ">
+        <div class="col-lg-8 text-center">
+      <h2 class=" section-heading text-uppercase mt-5">Team</h2>
+      <hr class="divider primary my-5">
+    </div>
+      </div>
+    <div class="container-fluid p-0">
+      <div class="row no-gutters">
+        <div class="col-lg-4 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
+            <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="project-category">
+                Lan Zhang
+              </div>
+              <div class="project-name text-white-50">
+                Harvard College 2021, Applied Math - CS and Economics
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
+            <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="project-category">
+                Ryan Wood
+              </div>
+              <div class="project-name text-white-50">
+                Harvard College 2020, Statistics
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
+            <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
+            <div class="portfolio-box-caption">
+              <div class="project-category">
+                Alice Sayphraraj
+              </div>
+              <div class="project-name text-white-50">
+                Harvard College 2021, Social Studies and Computer Science
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-light py-5">
+    <div class="container">
+      <div class="small text-center text-muted">Copyright &copy; Harvard University CS109A: Introduction to Data Science, Group 108. 2019</div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/creative.min.js"></script>
+
+</body>
+
+</html>
