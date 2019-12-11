@@ -184,8 +184,31 @@
       <hr class="divider my-5 ">
         </div>
       </div>
+	<p class="text-primary align-items-start"> We changed our models and the plans for them significantly throughout the course of the project. In the beginning, we were looking to analyze daily bond yield data, but after acquiring minute data for the S&P 500 and CBOE Volatility Index (VIX), we decided it would be a more vigorous inspection of fluctuations the President's tweets might cause. At first, it was difficult to move prediction accuracies past average model performance, so we played around regularization and tested different models, as well as different time frames, to see what would yield the best results. </p></br>
+      <h4 class="text-dark">Baseline Models</h4><br>
+    <p class="text-primary align-items-start"> We used a logistic regression model as our baseline model fitted on S&P and VIX data at 1 and 5 minutes intervals after Trump tweets (resulting in four different baseline models). We selected the most optimal regularization parameters for our baseline logistic regression models through cross validation. For three out of the four of our baseline models (1 Minute S&P, 5 Minute S&P, and 5 Minute VIX), we achieved an accuracy of around 50%, which is no improvement above average or a classification model that outputs all 1s or all 0s, as we had resampled our test data to have 50% 1s and 50% 0s. For our logistic regression model trained on the intersection of Trump Tweets and 1 Minute VIX data, we were able to get around 10% above average with an accuracy of ~60% on the test set.</p></br>
+    <!-- </div> -->
+    <div class="row text-muted">
+        <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6  >Logistic Regression: 1 Minute S&P</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/baseline/logreg1msp.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6  >Logistic Regression: 5 Minute S&P</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/baseline/logreg5msp.png" alt=""><br>
+      </div>
+      <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
+          <h6 >Logistic Regression: 1 Minute VIX</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/baseline/logreg1mvix.png" alt=""><br>
+        </div>
+          <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
+          <h6 >Logistic Regression: 5 Minute VIX</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/baseline/logreg5mvix.png" alt=""><br>
+      </div>
+    </div><br><br><br>
+    <!-- <div> -->
       <h4 class="text-dark">Classification Models on S&P 500, 1 Minute after Trump's Tweets</h4><br>
-    <p class="text-primary align-items-start"> We modelled the S&P 500 Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost. We chose parameters that had the best cross-validation accuracy among the set of parameters that we tested. Additionally, we used a grid search to try a reasonable range of parameter values and calculate the resulting accuracy for each value. This process was repeated for every model we fit. </p></br>
+    <p class="text-primary align-items-start"> We modelled the S&P 500 Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
@@ -205,7 +228,6 @@
         <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/parameters/xgboost.png" alt=""><br>
       </div>
     </div>
-    <!-- <div> -->
     <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of the S&P moving either up or down 1 minute after President Trump sends out a tweet.</p></br>
     <!-- </div> -->
     <div class="row text-muted">
@@ -222,12 +244,12 @@
         <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/prediction/nn.png" alt=""><br>
         </div>
           <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
-          <h6 >Logistic Regression</h6>
-        <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/prediction/logreg.png" alt=""><br><br>
+          <h6 >XG Boost</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/prediction/xgboost.png" alt=""><br>
       </div>
     </div>
-          <h6 class="text-muted text-center">XGBoost</h6></br>
-        <img class="mx-auto img-fluid d-block col-lg-8" src="img/model/classification/1msp/prediction/xgboost.png" alt=""><br><br><br><br>
+          <h6 class="text-muted text-center">Feature Importance for Best Model: XGBoost</h6></br>
+        <img class="mx-auto img-fluid d-block col-lg-5" src="img/model/classification/1msp/prediction/feature.png" alt=""><br><br>
   <!-- </div> -->
 
   <h4 class="text-dark">Classification Models on S&P 500, 5 Minutes after Trump's Tweets</h4><br>
@@ -268,12 +290,12 @@
         <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/prediction/nn.png" alt=""><br>
         </div>
           <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
-          <h6 >Logistic Regression</h6>
-        <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/prediction/logreg.png" alt=""><br><br>
+          <h6 >XGBoost</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5msp/prediction/xgboost.png" alt=""><br>
       </div>
     </div>
-          <h6 class="text-muted text-center">XGBoost</h6></br>
-        <img class="mx-auto img-fluid d-block col-lg-8" src="img/model/classification/5msp/prediction/xgboost.png" alt=""><br><br><br>
+          <h6 class="text-muted text-center">Feature Importance for Best Model: XGBoost</h6></br>
+        <img class="mx-auto img-fluid d-block col-lg-5" src="img/model/classification/5msp/prediction/feature.png" alt=""><br><br><br>
   <h4 class="text-dark">Classification Models on VIX Data, 1 Minute after Trump's Tweets</h4><br>
     <p class="text-primary align-items-start"> We modelled the VIX Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
     <!-- </div> -->
@@ -312,12 +334,12 @@
         <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/prediction/nn.png" alt=""><br>
         </div>
           <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
-          <h6 >Logistic Regression</h6>
-        <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/prediction/logreg.png" alt=""><br><br>
+          <h6 >Random Forest</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/1mvix/prediction/rf.png" alt=""><br>
       </div>
     </div>
-          <h6 class="text-muted text-center">Random Forest</h6></br>
-        <img class="mx-auto img-fluid d-block col-lg-8" src="img/model/classification/1mvix/prediction/rf.png" alt=""><br><br><br>
+          <h6 class="text-muted text-center">Feature Importance for Best Model: Random Forest</h6></br>
+        <img class="mx-auto img-fluid d-block col-lg-5" src="img/model/classification/1mvix/prediction/feature.png" alt=""><br><br><br>
   <!-- </div> -->
   <h4 class="text-dark">Classification Models on VIX Data, 5 Minutes after Trump's Tweets</h4><br>
     <p class="text-primary align-items-start"> We modelled the VIX Returns in many different ways in order to seek the best result for 5 minutes after Trump's tweets. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
@@ -357,12 +379,12 @@
         <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/prediction/nn.png" alt=""><br>
         </div>
           <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
-          <h6 >Logistic Regression</h6>
-        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/prediction/logreg.png" alt=""><br><br>
+          <h6 >XGBoost</h6>
+        <img class="mx-auto img-fluid d-block" src="img/model/classification/5mvix/prediction/xgboost.png" alt=""><br>
       </div>
     </div>
-          <h6 class="text-muted text-center">XGBoost</h6></br>
-        <img class="mx-auto img-fluid d-block col-lg-8" src="img/model/classification/5mvix/prediction/xgboost.png" alt=""><br>
+          <h6 class="text-muted text-center">Feature Importance for Best Model: XGBoost</h6></br>
+        <img class="mx-auto img-fluid d-block col-lg-5" src="img/model/classification/5mvix/prediction/feature.png" alt=""><br>
   <!-- </div> -->
   <h4 class="text-dark">Regression Models</h4><br>
     <p class="text-primary align-items-start"> We built regressions for the amount that the S&P or VIX went up or down 1 or 5 minutes after President Trump sent out a tweet using Random Forest MSE. </p></br>
@@ -388,6 +410,7 @@
         <img class="mx-auto img-fluid d-block" src="img/model/regression/5mvix.png" alt=""><br>
         <p> The VIX data are not predictable with a regression on a 5 minute prediction period </p> <br>
       </div>
+      <p class="text-primary align-items-start"> Our models reached our goals in that they surpassed the baseline models' classification accuracy, especially XGBoost and Neural Net for VIX 1-minute post tweet (0.94, 0.70, respectively), and XGBoost for VIX 5-minute post tweet (0.80). The prediction models for S&P data were still fairly successful, with XGBoost again outperforming other models at 0.61 for 1 minute post-tweet and 0.56 for 5-minutes post tweet. We suspect that the predictions for VIX were stronger as a result of the nature of the VIX data. Since VIX is an index of volatility, it could naturally be more deeply and immediately affected by the president's tweets. As VIX is a measure of future change as implied by S&P 500 index options (derivatives from the stocks in the S&P 500, including volatility, securities, exotics, etc.), one can think of it as a predictive measure of the rate of change of the S&P 500 index, and it could logically be understood that a tweet might alter futures' implied volatility for a moment without actually moving the S&P 500. From a quantitative standpoint, VIX data has a greater variance, a quality that could also explain the greater predictive accuracy we were able to achieve. </p></br>
     </div>
     </div>
   </div>
