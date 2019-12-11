@@ -208,7 +208,7 @@
     </div><br><br><br>
     <!-- <div> -->
       <h4 class="text-dark">Classification Models on S&P 500, 1 Minute after Trump's Tweets</h4><br>
-    <p class="text-primary align-items-start"> We modelled the S&P 500 Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
+    <p class="text-primary align-items-start"> Because our regularized logistic regression models for predicting the impact of Trump’s tweets on S&P 500 returns at the 1-minute and 5-minute levels did not have a high accuracy on the test set, we turned to ensemble/decision tree models such as Random Forest, AdaBoost, and XGBoost, as well as a Neural Network to see if we can achieve a higher classification accuracy above the benchmarks set by the baseline logistic regression models. For all four models, we searched for optimal parameters using cross-validation and grid search. The accuracy of each model on the validation set with respect to various parameters are plotted below. For our final model, we chose the combination of parameters that allowed for the highest classification accuracy on the validation set. </p></br>
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
@@ -228,7 +228,7 @@
         <img class="mx-auto img-fluid d-block" src="img/model/classification/1msp/parameters/xgboost.png" alt=""><br>
       </div>
     </div>
-    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of the S&P moving either up or down 1 minute after President Trump sends out a tweet.</p></br>
+    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of the S&P moving either up or down/staying constant 1 minute after President Trump sends out a tweet. XGBoost performed best with a 61% accuracy on the test set. </p></br>
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
@@ -253,7 +253,7 @@
   <!-- </div> -->
 
   <h4 class="text-dark">Classification Models on S&P 500, 5 Minutes after Trump's Tweets</h4><br>
-    <p class="text-primary align-items-start"> We modelled the S&P 500 Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
+    <!-- <p class="text-primary align-items-start"></p></br> -->
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
@@ -274,7 +274,7 @@
       </div>
     </div>
     <!-- <div> -->
-    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of the S&P moving either up or down 5 minutes after President Trump sends out a tweet.</p></br>
+    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of the S&P moving either up or down/staying constant 5 minutes after President Trump sends out a tweet. XGBoost performed the best with an accuracy of around 56% on the test set. </p></br>
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
@@ -297,7 +297,7 @@
           <h6 class="text-muted text-center">Feature Importance for Best Model: XGBoost</h6></br>
         <img class="mx-auto img-fluid d-block col-lg-5" src="img/model/classification/5msp/prediction/feature.png" alt=""><br><br><br>
   <h4 class="text-dark">Classification Models on VIX Data, 1 Minute after Trump's Tweets</h4><br>
-    <p class="text-primary align-items-start"> We modelled the VIX Returns in many different ways in order to seek the best result. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
+    <p class="text-primary align-items-start"> Because our regularized logistic regression models for predicting the impact of Trump’s tweets on VIX metrics at the 1-minute and 5-minute levels did not have a high accuracy on the test set, we turned to ensemble/decision tree models such as Random Forest, AdaBoost, and XGBoost, as well as a Neural Network to see if we can achieve a higher classification accuracy above the benchmarks set by the baseline logistic regression models. For all four models, we searched for optimal parameters using cross-validation and grid search. The accuracy of each model on the validation set with respect to various parameters are plotted below. For our final model, we chose the combination of parameters that allowed for the highest classification accuracy on the validation set.</p></br>
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
@@ -318,7 +318,7 @@
       </div>
     </div>
     <!-- <div> -->
-    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of VIX Returns moving either up or down 1 minute after President Trump sends out a tweet.</p></br>
+    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of VIX moving either up or down/staying constant 1 minute after President Trump sends out a tweet. Random Forest performed the best with an accuracy of around 94% on the test set. </p></br>
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
@@ -342,7 +342,7 @@
         <img class="mx-auto img-fluid d-block col-lg-5" src="img/model/classification/1mvix/prediction/feature.png" alt=""><br><br><br>
   <!-- </div> -->
   <h4 class="text-dark">Classification Models on VIX Data, 5 Minutes after Trump's Tweets</h4><br>
-    <p class="text-primary align-items-start"> We modelled the VIX Returns in many different ways in order to seek the best result for 5 minutes after Trump's tweets. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br>
+   <!--  <p class="text-primary align-items-start"> We modelled the VIX Returns in many different ways in o --><!-- rder to seek the best result for 5 minutes after Trump's tweets. First, we searched for optimal parameters using cross-validation and grid search. We attempted this on Random Forest, AdaBoost, Neural Network, and XGBoost.</p></br> -->
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
@@ -363,7 +363,7 @@
       </div>
     </div>
     <!-- <div> -->
-    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of VIX Returns moving either up or down 5 minutes after President Trump sends out a tweet.</p></br>
+    <p class="text-primary align-items-start"> We then used these models to predict a two-class classification of VIX moving either up or down/staying constant 5 minutes after President Trump sends out a tweet. XGBoost performed the best with an accuracy of around 80% on the test set. </p></br>
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
