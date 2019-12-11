@@ -387,28 +387,28 @@
         <img class="mx-auto img-fluid d-block col-lg-5" src="img/model/classification/5mvix/prediction/feature.png" alt=""><br>
   <!-- </div> -->
   <h4 class="text-dark">Regression Models</h4><br>
-    <p class="text-primary align-items-start"> We built regressions for the amount that the S&P or VIX went up or down 1 or 5 minutes after President Trump sent out a tweet using Random Forest MSE. </p></br>
+    <p class="text-primary align-items-start"> We built Random Forest regression models to predict the amount that the S&P or VIX went up or down 1 or 5 minutes after President Trump sent out a tweet. We compared the mean squared error (MSE) of the Random Forest regression model against that of a trivial model (Baseline) that predicts all 1s or all 0s</p></br>
     <!-- </div> -->
     <div class="row text-muted">
         <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
-          <h6  >S&P Change, 1 Minute Post-Tweet <br/> Test MSE: 7.2181e-7, Baseline MSE: 8.4556e-8 (better than Random Forest)</h6>
+          <h6  >S&P Change, 1 Minute Post-Tweet <br/> Min Test MSE: 7.2181e-7, Baseline MSE: 8.4556e-8 (better than Random Forest)</h6>
         <img class="mx-auto img-fluid d-block" src="img/model/regression/1msp.png" alt=""><br>
         <p>The S&P500 data are not easily predictable with a regression model on a 1 minute prediction period.</p><br>
         </div>
           <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
-          <h6  >S&P Change, 5 Minutes Post-Tweet <br/> Test MSE: 8.4557e-8 (with best max tree depth, 200), Baseline MSE: 8.4555e-8 (better than Random Forest)</h6>
+          <h6  >S&P Change, 5 Minutes Post-Tweet <br/> Min Test MSE: 8.4557e-8, Baseline MSE: 8.4555e-8 (better than Random Forest)</h6>
         <img class="mx-auto img-fluid d-block" src="img/model/regression/5msp.png" alt=""><br>
         <p> The S&P500 data are not easily predictable with a regression model on a 5 minute prediction period. </p><br>
       </div>
       <div class="col-lg-5 ml-auto text-center mb-5 mb-lg-0">
-          <h6 >VIX Change, 1 Minute Post-Tweet <br/> Test MSE: 1.3745e-6, Baseline MSE: 8.4556e-8 (better than Random Forest) </h6>
+          <h6 >VIX Change, 1 Minute Post-Tweet <br/> Min Test MSE: 1.3745e-6, Baseline MSE: 8.4556e-8 (better than Random Forest) </h6>
         <img class="mx-auto img-fluid d-block" src="img/model/regression/1mvix.png" alt=""><br>
-        <p> The VIX data are not predictable with a regression on a 1 minute prediction period </p> <br>
+        <p> The VIX data are not predictable with a regression on a 1 minute prediction period. </p> <br>
         </div>
           <div class="col-lg-5 mr-auto text-center mb-5 mb-lg-0">
-          <h6 >VIX Change, 5 Minutes Post-Tweet <br/> Test MSE: 6.882e-06 (with best max tree depth, 3), Baseline MSE: 6.879e-06 (better than Random Forest) </h6>
+          <h6 >VIX Change, 5 Minutes Post-Tweet <br/> Min Test MSE: 6.882e-06, Baseline MSE: 6.879e-06 (better than Random Forest) </h6>
         <img class="mx-auto img-fluid d-block" src="img/model/regression/5mvix.png" alt=""><br>
-        <p> The VIX data are not predictable with a regression on a 5 minute prediction period </p> <br>
+        <p> The VIX data are not predictable with a regression on a 5 minute prediction period. </p> <br>
       </div>
       <p class="text-primary align-items-start"> Our models reached our goals in that they surpassed the baseline models' classification accuracy, especially XGBoost and Neural Net for VIX 1-minute post tweet (0.94, 0.70, respectively), and XGBoost for VIX 5-minute post tweet (0.80). The prediction models for S&P data were still fairly successful, with XGBoost again outperforming other models at 0.61 for 1 minute post-tweet and 0.56 for 5-minutes post tweet. We suspect that the predictions for VIX were stronger as a result of the nature of the VIX data. Since VIX is an index of volatility, it could naturally be more deeply and immediately affected by the president's tweets. As VIX is a measure of future change as implied by S&P 500 index options (derivatives from the stocks in the S&P 500, including volatility, securities, exotics, etc.), one can think of it as a predictive measure of the rate of change of the S&P 500 index, and it could logically be understood that a tweet might alter futures' implied volatility for a moment without actually moving the S&P 500. From a quantitative standpoint, VIX data has a greater variance, a quality that could also explain the greater predictive accuracy we were able to achieve. </p></br>
     </div>
